@@ -1,0 +1,66 @@
+
+package gestion_quickpass;
+
+public class punto4 {
+        private Quickpass[] quickpassArray; // con el arreglo es para almacenar objeto quickpass y contador para llevar la cuenta del número de quickpass
+        private int capacidad;
+        //Constructor
+        
+        public punto4(int capacidad) {
+        quickpassArray = new Quickpass[capacidad];
+        this.capacidad = 0;
+        }
+        
+        //se agrega un nuevo quickpas por un método
+        public void agregarquickpass(String filial, String codigo, String placa, String estado) {
+            if (capacidad >= quickpassArray.length) {
+                System.out.println("No hay espacio para añadir más dispositivos Quickpass");
+                return;
+            }
+        
+        quickpassArray[capacidad ++] = new Quickpass(filial, codigo, placa, estado);
+         // con esto se aumenta la capacidd al añadir el quickpass nuevo
+        
+         
+    }
+    public Quickpass consultarQP(String codigo){
+        for(Quickpass qp: quickpassArray){
+            if (qp != null && qp.getCodigo().equals(codigo)){
+                return qp;
+       }  
+    }
+    return null;
+}
+
+public void eliminarQuickPass(String codigo){
+    for(int i = 0; i< capacidad; i++){
+        if (quickpassArray[i].getCodigo().equals(codigo)){
+            quickpassArray[i]= quickpassArray[capacidad -1]= null;
+            quickpassArray[capacidad -1]= null;
+            capacidad --;
+            return;
+        }
+    }
+    System.out.println("Quickpass no encontrado");
+}
+public void listarQuickPass(){
+    System.out.println("Lista de Quickpasses");
+    for(Quickpass qp :quickpassArray){
+        if(qp != null){
+            System.out.println(qp);
+        }
+    }
+}
+public void actualizarquickpass(String codigo, String nuevaFilial, String nuevaPlaca, String nuevoEstado){
+    Quickpass qp = consultarQP(codigo);
+    if(qp != null){
+       qp.setFilial(nuevaFilial);
+       qp.setPlaca(nuevaPlaca);
+       qp.setEstado(nuevoEstado);
+       
+    } else { 
+        System.out.println("Quickpass no encontrado");    
+    }
+}  
+
+}
