@@ -11,18 +11,24 @@ public class punto4 {
         this.capacidad = 0;
         }
         
-        //se agrega un nuevo quickpas por un método
+    //se agrega un nuevo quickpas por un método
         public void agregarquickpass(String filial, String codigo, String placa, String estado) {
-            if (capacidad >= quickpassArray.length) {
-                System.out.println("No hay espacio para añadir más dispositivos Quickpass");
-                return;
-            }
-        
-        quickpassArray[capacidad ++] = new Quickpass(filial, codigo, placa, estado);
-         // con esto se aumenta la capacidd al añadir el quickpass nuevo
-        
-         
+    // Verificar si hay espacio en el arreglo
+    if (capacidad >= quickpassArray.length) {
+        System.out.println("No hay espacio para añadir más dispositivos Quickpass");
+        return;
     }
+
+    // Validación del código: 10 dígitos y empieza con "101"
+    if (codigo.length() == 10 && codigo.startsWith("101")) {
+        // Se agrega el nuevo Quickpass al arreglo
+        quickpassArray[capacidad++] = new Quickpass(filial, codigo, placa, estado);
+        System.out.println("Quickpass añadido exitosamente.");
+    } else {
+        System.out.println("Código inválido. Debe ser de 10 dígitos y comenzar con '101'.");
+    }
+}
+
     public Quickpass consultarQP(String codigo){
         for(Quickpass qp: quickpassArray){
             if (qp != null && qp.getCodigo().equals(codigo)){
